@@ -1,3 +1,4 @@
+import type { JSX } from "react";
 import employees from '../../assets/data/employees.json'
 import './Main.css'
 import type {Employee} from '../../assets/data/employeeInterface'
@@ -36,7 +37,7 @@ function DepartmentList({ employees }: { employees: Employee[] }) {
     // for each department group found in sorted json push all of its employees as li elemnts too a employee jsx array container
     for (const department in groupedEmployees) {
         const employeeItems: JSX.Element[] = [];
-        groupedEmployees[department].forEach((employee, index) => {
+        groupedEmployees[department].forEach((employee) => {
             employeeItems.push(<li>{employee.name}</li>);
     });
 
