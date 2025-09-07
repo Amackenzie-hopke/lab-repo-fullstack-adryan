@@ -1,6 +1,6 @@
 import "./Header.css";
 
-export function HeaderContent(){
+export function Header(){
   return(
     <>
     <header>

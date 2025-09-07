@@ -1,0 +1,11 @@
+.departmentSection{
+    background:paleturquoise;
+    border:.15em solid black;
+    margin-bottom: .25 em;
+    font-weight: 800;
+}
+li{
+    border: .1em solid black;
+    margin-bottom: .5em;
+    background: pink;
+}

@@ -1,5 +1,5 @@
 
-const employees =[
+[
   { "name": "Zoë Robins", "department": "Administration" },
   { "name": "Madeleine Madden", "department": "Administration" },
   { "name": "Josha Sadowski", "department": "Audit" },
@@ -41,4 +41,4 @@ const employees =[
   { "name": "Tala Braveheart", "department": "IT Technician" },
   { "name": "Iniko Stonebear", "department": "IT Technician" },
   { "name": "Onatah Redhawk", "department": "IT Technician" }
-];
+]
