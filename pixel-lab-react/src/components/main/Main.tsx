@@ -8,6 +8,7 @@ export function Main(){
   return(
     <>
     <main>
+    <h2>Employee Directory</h2>
     <DepartmentList employees={employees}/>
     </main>
     </>
@@ -38,13 +39,13 @@ function DepartmentList({ employees }: { employees: Employee[] }) {
     for (const department in groupedEmployees) {
         const employeeItems: JSX.Element[] = [];
         groupedEmployees[department].forEach((employee) => {
-            employeeItems.push(<li>{employee.name}</li>);
+            employeeItems.push(<h4>{employee.name}</h4>);
     });
 
     departmentSections.push(
         <div className ="departmentSection">
         <h3>{department}</h3>
-        <ul>{employeeItems}</ul>
+        {employeeItems}
         </div>
   );
 }
