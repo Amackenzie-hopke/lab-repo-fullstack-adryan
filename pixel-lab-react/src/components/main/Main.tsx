@@ -35,7 +35,7 @@ utilizes sort employees function to seperate json logic from browser component l
 function DepartmentList({ employees }: { employees: Employee[] }) {
     const groupedEmployees = SortEmployees(employees);
     const departmentSections: JSX.Element[] = [];
-    // for each department group found in sorted json push all of its employees as li elemnts too a employee jsx array container
+    // for each department group found in sorted json push all of its employees as h4 elemnts too a employee jsx array container
     for (const department in groupedEmployees) {
         const employeeItems: JSX.Element[] = [];
         groupedEmployees[department].forEach((employee) => {
