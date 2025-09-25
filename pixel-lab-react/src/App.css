@@ -1,0 +1,27 @@
+body {
+  display: flex;
+  justify-content: center;   
+  align-items: center; 
+}
+
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+
+/*css rule source:https://cssgradient.io/*/
+body{
+  background: #EEAECA;
+background: radial-gradient(circle, rgba(238, 174, 202, 1) 56%, rgba(179, 183, 222, 1) 85%, rgba(148, 187, 233, 1) 0%);
+}
+

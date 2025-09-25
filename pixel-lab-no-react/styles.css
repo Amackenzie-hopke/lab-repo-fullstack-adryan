@@ -1,0 +1,44 @@
+@font-face {
+    font-family: "saiba-45";
+    src: url("./assets/font/ALTRONED\ Trial.otf");
+}
+
+body{
+    background-color: rgb(255, 160, 160);
+    color:rgb(0, 0, 0);
+    justify-content: center;
+    font-family: "saiba-45", Arial;
+}
+.departmentGroup{
+    border-style:groove;
+    border-color: black;
+    border-width: .5em;
+    flex: 1 1 250px;
+        background-color: yellow;
+}
+#employeeSection{
+    display: flex;
+    flex-wrap:wrap;
+    gap: .5em;
+
+}
+img{
+    height: 5em;
+    width:5em;
+}
+nav{
+    display: flex;
+    gap:2em;
+
+}
+.navbar{
+   display: flex;
+    align-items: center;
+
+}
+.links{
+    display: flex;
+    justify-content: space-evenly;
+    gap: 10%;
+}
+

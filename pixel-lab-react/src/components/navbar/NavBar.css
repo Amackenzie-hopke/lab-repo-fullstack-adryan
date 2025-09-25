@@ -1,0 +1,17 @@
+.navbar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-decoration: underline;
+}
+
+a
+{
+border: .25em solid black;
+font-size: larger;
+padding: .25em;
+
+}
+
+
+
