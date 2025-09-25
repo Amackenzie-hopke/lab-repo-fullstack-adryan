@@ -8,12 +8,27 @@ import { useState } from "react";
 
 /* main calls departmentList function using employee data*/
 export function EmployeePage(){
-// creates a search term item we will use to compare search to employees
+// creates a use state instance with a string we call query that will hold searches
+// and a function i called updatequery that we can use to re render our page with the updated state
+const [query, updateQuery] = useState("");
   return(
     <>
     <section>
     <h2>Employee Directory</h2>
-    <DepartmentList employees={employees}/>
+    {/* 
+    - creates a input field which will be our searchbox on the dom 
+    - uses the text string type
+    - value is set to our use state query variable to allow us to pass it off
+    - on change updates the pages state by calling update query with the search query value
+    */}
+    <input 
+        id="searchBox"
+        type="text" 
+        placeholder="Search here" 
+        value={query} 
+        onChange={(employee)=>updateQuery(employee.target.value)}
+    />
+    <DepartmentList employees={employees} query={query}/>
     </section>
     </>
   );
@@ -37,9 +52,16 @@ function SortEmployees(employees:Employee[]) {
 }
 /* function to create react elements dynamically using employee interface against employee data.
 utilizes sort employees function to seperate json logic from browser component logic.*/
-function DepartmentList({ employees }: { employees: Employee[]; }) {
+function DepartmentList({ employees,query }: { employees: Employee[];query:string; }) {
+    // filters employees by name or department string checking if it starts with the same as the query
+    const filteredEmployees = employees.filter(
+        (employee)=>
+            employee.name.toLowerCase().startsWith(query.toLowerCase()) ||
+            employee.department.toLowerCase().startsWith(query.toLowerCase())
+    );
 
-    const groupedEmployees = SortEmployees(employees);
+    // uses the sort employees function on our filtered employees
+    const groupedEmployees = SortEmployees(filteredEmployees);
     
 
     // for each department group found in sorted json push all of its employees as h4 elemnts too a employee jsx array container
