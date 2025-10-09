@@ -30,35 +30,6 @@ export function useRecipes(dependencies: unknown[], filterFn?: ((recipe: Recipe)
     }
   };
 
-  const toggleSavedRecipe = async (recipeId: string) => {
-    try {
-      await RecipeService.toggleSavedRecipe(recipeId);
-
-      await fetchRecipes();
-    } catch (errorObject) {
-      setError(`${errorObject}`);
-    }
-  };
-
-  const filterOptions = useMemo(() => {
-    const recipeTypes = [...Object.values(RecipeType)].filter((filter) => recipes.findIndex((x) => x.type === filter) !== -1) as string[];
-    return ["All", ...recipeTypes];
-  }, [recipes]);
-
-  const filteredRecipes = useMemo(() => {
-    let result = [...recipes];
-
-    if (filters.recipeType !== "All") {
-      result = result.filter((recipe) => recipe.type === filters.recipeType);
-    }
-
-    if (filters.searchTerm) {
-      const st = filters.searchTerm.toLowerCase();
-      result = result.filter((recipe) => recipe.name.toLowerCase().includes(st) || recipe.type.toLowerCase().includes(st));
-    }
-
-    return result;
-  }, [recipes, filters]);
 
   const setSearchTerm = (searchTerm: string) => {
     setFilters((prev) => ({ ...prev, searchTerm }));
@@ -73,11 +44,8 @@ export function useRecipes(dependencies: unknown[], filterFn?: ((recipe: Recipe)
   }, [...dependencies]);
 
   return {
-    filteredRecipes,
     recipes,
     error,
-    toggleSavedRecipe,
-    filterOptions,
     setSearchTerm,
     setRecipeType,
   };

@@ -1,6 +1,6 @@
-import organizations from '../../../assets/data/Organization/Organization.json'
+import organizations from '../../data/Organization/Organization.json'
 import './Organization.css'
-import type {Organization} from '../../../assets/data/Organization/OrganizationInterface'
+import type {Organization} from '../../data/Organization/OrganizationInterface'
 import { useState } from "react" 
 
 // creates a new function to use a boolean use state to expand and contract descriptions

@@ -1,10 +1,5 @@
 import {useState} from "react"
-import type {Employee} from '../../../assets/data/Employees/employeeInterface'
-
-// i used following link as a source for my form handling
-// https:stackoverflow.com/questions/66692085/better-way-of-handling-form-data-via-react-usestate?
-
-import type {CollectionItem} from "../../../types/collection-item-interface" 
+import type {Employee} from '../../data/Employees/employeeInterface'
 
 export function EmployeeForm({ formEntry, handleSubmit, handleFormInput}) {
     return(
