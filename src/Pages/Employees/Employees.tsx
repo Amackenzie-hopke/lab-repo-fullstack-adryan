@@ -1,20 +1,25 @@
 import type { JSX } from "react";
-import employees from '../../../assets/data/employees.json'
+import employees from '../../../assets/data/Employees/employees.json'
 import './Employees.css'
-import type {Employee} from '../../../assets/data/employeeInterface'
+import type {Employee} from '../../../assets/data/Employees/employeeInterface'
 import { useState } from "react";
+
 
 
 
 /* main calls departmentList function using employee data*/
 export function EmployeePage(){
-// creates a use state instance with a string we call query that will hold searches
+
+
+    // creates a use state instance with a string we call query that will hold searches
 // and a function i called updatequery that we can use to re render our page with the updated state
 const [query, updateQuery] = useState("");
   return(
     <>
     <section>
     <h2>Employee Directory</h2>
+    
+
     {/* 
     - creates a input field which will be our searchbox on the dom 
     - uses the text string type
@@ -74,7 +79,7 @@ function DepartmentList({ employees,query }: { employees: Employee[];query:strin
     });
 
     departmentSections.push(
-        <div className ="departmentSection">
+        <div className ="departmentSection" key={department}>
         <h3>{department}</h3>
         {employeeItems}
         </div>
