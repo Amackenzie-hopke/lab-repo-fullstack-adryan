@@ -1,44 +1,61 @@
-import { useEffect, useState } from "react";
-import * as RecipeService from "../";
-import type { Recipe } from "../types/Recipe";
-import { Employee } from "../data/Employees/employeeInterface";
+import { useState } from "react";
+import type { Employee } from "../data/Employees/employeeInterface";
+import * as RecipeService from "../services/recipeService";
+import { createEmployee } from "../apis/employeeRepo";
 
-interface FilterOptions {
-  searchTerm: string;
-  recipeType: string;
+
+interface UseEntryEmployeeFormProps {
+  EmployeeCount:number;
+  onAddEmployee?: (employee:Employee)=> void;
 }
 
-export function useRecipes(dependencies: unknown[], filterFn?: ((recipe: Recipe) => boolean) | null) {
-  const [recipes, setRecipes] = useState<Recipe[]>([]);
-  const [error, setError] = useState<string | null>();
-  const [filters, setFilters] = useState<FilterOptions>({
-    searchTerm: "",
-    recipeType: "All",
+
+export function useEntryForm({ EmployeeCount, onAddEmployee }: UseEntryEmployeeFormProps) {
+  const [formEntry, setFormEntry] = useState<Employee>({
+    id:"",
+    name: "",
+    department: "",
   });
 
-  const fetchRecipes = async () => {
-    try {
-      let result = await RecipeService.fetchRecipes();
-
-      if (filterFn) {
-        result = result.filter(filterFn);
-      }
-
-      setRecipes([...result]);
-    } catch (errorObject) {
-      setError(`${errorObject}`);
-    }
-  };
 
 
-  useEffect(() => {
-    fetchRecipes();
-  }, [...dependencies]);
-
-  return {
-    recipes,
-    error,
-    setSearchTerm,
-    setRecipeType,
-  };
+const handleFormInput = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { name, value} = event.target;
+        setFormEntry({
+            ...formEntry,
+            [name]: value,
+  });
 }
+
+
+
+const handleSubmit = async(event:React.FormEvent)=>{
+    event.preventDefault()
+
+    const newEmployee= {
+            ...formEntry,  
+            id: ((EmployeeCount ?? 0) + 1).toString()              
+    };
+
+
+    console.log("newEmployee", newEmployee);
+
+    await createEmployee(newEmployee)
+
+    setFormEntry({
+    id:"",
+    name: "",
+    department:"",
+    });
+  }
+return{
+  formEntry,
+  handleFormInput,
+  handleSubmit
+}
+
+}
+
+
+
+   

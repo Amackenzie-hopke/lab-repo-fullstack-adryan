@@ -28,7 +28,7 @@ export function EmployeePage(){
         type="text" 
         placeholder="Search here" 
         value={query} 
-        onChange={(employee)=>updateQuery(employee.target.value)}
+        onChange={(event)=>updateQuery(event.target.value)}
     />
     <HandleEmployeeForm onAddEmployee={addNewEmployee} EmployeeCount={employees.length}/>
     <DepartmentList employees={employees} query={query}/>

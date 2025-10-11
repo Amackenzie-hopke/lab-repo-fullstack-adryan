@@ -1,16 +1,15 @@
-import {useState} from "react"
 import type {Employee} from '../../data/Employees/employeeInterface'
-
+import { useEntryForm } from "../../hooks/useEntryFormEmployee";
 type FormEntry = Omit<Employee, "id">;
 
-
+import * as useEntryform from "../../hooks/useEntryFormEmployee";
 interface EmployeeFormProps {
   formEntry: FormEntry;
-  handleSubmit: (e: React.FormEvent) => void;
-  handleFormInput: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleSubmit: (event: React.FormEvent) => void;
+  handleFormInput: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export function EmployeeForm({ formEntry, handleSubmit, handleFormInput}:EmployeeFormProps) {
+function EmployeeFormTemplate({ formEntry, handleSubmit, handleFormInput}:EmployeeFormProps) {
     return(
         <form className= "AddEmployeeForm" onSubmit={handleSubmit}>
             <fieldset>
@@ -44,55 +43,9 @@ export function EmployeeForm({ formEntry, handleSubmit, handleFormInput}:Employe
     );
 };
 
-export function HandleEmployeeForm({ onAddEmployee,EmployeeCount }: { onAddEmployee?: (employee: Employee) => void,EmployeeCount:number }) {
-    
-    const [formEntry, createEmployeeProfile] = useState<Employee>({ 
-        id:"",
-        name: "",
-        department:"",
-    });
-
-    const handleSubmit = (event:React.FormEvent)=>{
-        event.preventDefault()
-
-        const newEmployee= {
-                ...formEntry,  
-                id: ((EmployeeCount ?? 0) + 1).toString()              
-        };
 
 
-        console.log("newEmployee", newEmployee);
-
-        if (onAddEmployee) {
-            onAddEmployee(newEmployee);
-        }
-
-        createEmployeeProfile({
-        id:"",
-        name: "",
-        department:"",
-        });
-    }
-
-    // handles extracting inputs from the form and converting data
-    const handleFormInput = (game: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-        const { name, value} = game.target;
-                createEmployeeProfile({
-                    ...formEntry,
-                    [name]: value,
-            });
-        }
-   
-    return(
-        <EmployeeForm 
-            formEntry={formEntry}
-            handleSubmit={handleSubmit}
-            handleFormInput={handleFormInput}
-        />
-    );
-};
-
-export function CreateEmployee({employee}: { employee: Employee }) {
+function CreateEmployee({employee}: { employee: Employee }) {
     return(
         <div className ="departmentSection">
         <h3>{employee.department}</h3>
@@ -102,6 +55,14 @@ export function CreateEmployee({employee}: { employee: Employee }) {
     );
 };
 
+function EmployeeForm(){
+if (EmployeeFormTemplate){
+    CreateEmployee
+    await 
+}
 
 
-export default HandleEmployeeForm
+}
+
+
+export default 
