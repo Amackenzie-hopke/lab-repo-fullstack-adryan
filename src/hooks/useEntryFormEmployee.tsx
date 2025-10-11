@@ -31,14 +31,6 @@ export function useRecipes(dependencies: unknown[], filterFn?: ((recipe: Recipe)
   };
 
 
-  const setSearchTerm = (searchTerm: string) => {
-    setFilters((prev) => ({ ...prev, searchTerm }));
-  };
-
-  const setRecipeType = (recipeType: string) => {
-    setFilters((prev) => ({ ...prev, recipeType }));
-  };
-
   useEffect(() => {
     fetchRecipes();
   }, [...dependencies]);

@@ -31,7 +31,7 @@ export function EmployeePage(){
         onChange={(employee)=>updateQuery(employee.target.value)}
     />
     <HandleEmployeeForm onAddEmployee={addNewEmployee} EmployeeCount={employees.length}/>
-    <DepartmentList employees={employeeData} query={query}/>
+    <DepartmentList employees={employees} query={query}/>
 
     </section>
     </>
