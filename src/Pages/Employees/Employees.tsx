@@ -1,18 +1,25 @@
-import employees from '../../data/Employees/employees.json'
+import {employeeData} from '../../data/Employees/employees' 
 import './Employees.css'
 import { useState } from "react";
 import DepartmentList from '../../components/Employees/EmployeeList'
+import type { Employee } from "../../data/Employees/employeeInterface";
 
-
+import { HandleEmployeeForm } from '../../components/Employees/employeeForm';
 
 /* main calls departmentList function using employee data*/
 export function EmployeePage(){
 
 
+    const [employees,setEmployees ] = useState<Employee[]>(employeeData);
 
-const [query, updateQuery] = useState("");
-  return(
-    <>
+    const [query, updateQuery] = useState("");
+
+
+    const addNewEmployee = (newEmployee: Employee) => {
+        setEmployees((prevEmployees) => [...prevEmployees, newEmployee]);
+    };
+  return(   
+   <>
     <section>
     <h2>Employee Directory</h2>
     
@@ -23,8 +30,8 @@ const [query, updateQuery] = useState("");
         value={query} 
         onChange={(employee)=>updateQuery(employee.target.value)}
     />
-
-    <DepartmentList employees={employees} query={query}/>
+    <HandleEmployeeForm onAddEmployee={addNewEmployee} EmployeeCount={employees.length}/>
+    <DepartmentList employees={employeeData} query={query}/>
 
     </section>
     </>

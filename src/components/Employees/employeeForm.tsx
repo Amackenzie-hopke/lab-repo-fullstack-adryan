@@ -1,7 +1,16 @@
 import {useState} from "react"
 import type {Employee} from '../../data/Employees/employeeInterface'
 
-export function EmployeeForm({ formEntry, handleSubmit, handleFormInput}) {
+type FormEntry = Omit<Employee, "id">;
+
+
+interface EmployeeFormProps {
+  formEntry: FormEntry;
+  handleSubmit: (e: React.FormEvent) => void;
+  handleFormInput: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+export function EmployeeForm({ formEntry, handleSubmit, handleFormInput}:EmployeeFormProps) {
     return(
         <form className= "AddEmployeeForm" onSubmit={handleSubmit}>
             <fieldset>
@@ -35,13 +44,44 @@ export function EmployeeForm({ formEntry, handleSubmit, handleFormInput}) {
     );
 };
 
-export function HandleEmployeeForm({ onAddEmployee }: { onAddEmployee?: (employee: Employee) => void }) {
+export function HandleEmployeeForm({ onAddEmployee,EmployeeCount }: { onAddEmployee?: (employee: Employee) => void,EmployeeCount:number }) {
     
     const [formEntry, createEmployeeProfile] = useState<Employee>({ 
+        id:"",
         name: "",
         department:"",
     });
 
+    const handleSubmit = (event:React.FormEvent)=>{
+        event.preventDefault()
+
+        const newEmployee= {
+                ...formEntry,  
+                id: ((EmployeeCount ?? 0) + 1).toString()              
+        };
+
+
+        console.log("newEmployee", newEmployee);
+
+        if (onAddEmployee) {
+            onAddEmployee(newEmployee);
+        }
+
+        createEmployeeProfile({
+        id:"",
+        name: "",
+        department:"",
+        });
+    }
+
+    // handles extracting inputs from the form and converting data
+    const handleFormInput = (game: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+        const { name, value} = game.target;
+                createEmployeeProfile({
+                    ...formEntry,
+                    [name]: value,
+            });
+        }
    
     return(
         <EmployeeForm 
@@ -61,11 +101,6 @@ export function CreateEmployee({employee}: { employee: Employee }) {
 
     );
 };
-
-
-
-
-
 
 
 
