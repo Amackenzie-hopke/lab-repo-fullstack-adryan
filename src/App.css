@@ -7,6 +7,12 @@
   transition: filter 300ms;
 }
 
+div.error{
+  color: blueviolet;
+  font-style: bold;
+  font-weight: 700;
+}
+
 
 
 /*css rule source:https://cssgradient.io/*/

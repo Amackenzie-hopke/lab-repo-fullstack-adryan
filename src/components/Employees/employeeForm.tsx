@@ -13,7 +13,6 @@ interface EmployeeFormProps {
 Employee form defines our employye creation forms html structure and renders erros received from service validations through our hook
 
 receives form entry, handleSubmit, HandleformInput and errors as parameters from the use form entry employee hook
-
 */
 function EmployeeForm({ formEntry, handleSubmit, handleFormInput,errors}:EmployeeFormProps) {
         return(
@@ -61,6 +60,9 @@ function EmployeeForm({ formEntry, handleSubmit, handleFormInput,errors}:Employe
 
 
 
+/*
+bridges the employee form with the useEntryFormEmployee hook for execution on the page component
+*/
 export function EmployeeFormHandler({EmployeeCount,onAddEmployee,}:{EmployeeCount:number,onAddEmployee:(emp: Employee) => void;}){
     const { formEntry, handleFormInput, handleSubmit,errors } = useEntryForm({
         EmployeeCount,

@@ -8,6 +8,15 @@ interface UseEntryEmployeeFormProps {
   onAddEmployee?: (employee:Employee)=> void;
 }
 
+/*
+useentryform hook is a Form handler for employee creation form
+handles 
+  - front end logic for the form and employee creation
+  - returning errors for components to display
+  - our use state logic for the form
+  - for submision behaviour such as preventing default behaviour and claling our creation service.
+
+*/
 
 export function useEntryForm({ EmployeeCount, onAddEmployee }: UseEntryEmployeeFormProps) {
   const [formEntry, setFormEntry] = useState<Employee>({
@@ -54,7 +63,7 @@ export function useEntryForm({ EmployeeCount, onAddEmployee }: UseEntryEmployeeF
       console.log("newEmployee", newEmployee);
 
       await EmployeeService.createNewEmployee(newEmployee);
-      
+
       if (onAddEmployee) {
         onAddEmployee(newEmployee); 
       }
