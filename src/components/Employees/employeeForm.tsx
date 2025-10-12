@@ -2,67 +2,79 @@ import type {Employee} from '../../data/Employees/employeeInterface'
 import { useEntryForm } from "../../hooks/useEntryFormEmployee";
 type FormEntry = Omit<Employee, "id">;
 
-import * as useEntryform from "../../hooks/useEntryFormEmployee";
 interface EmployeeFormProps {
   formEntry: FormEntry;
   handleSubmit: (event: React.FormEvent) => void;
   handleFormInput: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  errors: Map<string, string>;
 }
 
-function EmployeeFormTemplate({ formEntry, handleSubmit, handleFormInput}:EmployeeFormProps) {
-    return(
-        <form className= "AddEmployeeForm" onSubmit={handleSubmit}>
-            <fieldset>
-                <legend>Add new employees</legend>
+/*
+Employee form defines our employye creation forms html structure and renders erros received from service validations through our hook
 
-                
-                    <label htmlFor="EmployeeNameField">
-                        Employee's Name
-                    </label>
-                    <input 
-                        type="text"
-                        name="name"
-                        id="EmployeeNameField"
-                        value={formEntry.name} 
-                        onChange={handleFormInput}
-                    />
+receives form entry, handleSubmit, HandleformInput and errors as parameters from the use form entry employee hook
+
+*/
+function EmployeeForm({ formEntry, handleSubmit, handleFormInput,errors}:EmployeeFormProps) {
+        return(
+            <form className= "AddEmployeeForm" onSubmit={handleSubmit}>
+                <fieldset>
+                    <legend>Add new employees</legend>
+
+                    
+                        <label htmlFor="EmployeeNameField">
+                            Employee's Name
+                        </label>
+                        {errors.has("name") && (
+                            <div className="error">{errors.get("name")}</div>
+                        )}
+                        <input 
+                            type="text"
+                            name="name"
+                            id="EmployeeNameField"
+                            value={formEntry.name} 
+                            onChange={handleFormInput}
                             
-                    <label htmlFor="EmployeeDepartmentField">
-                        Employee's Department
-                    </label>
-                    <input 
-                        type="text"
-                        name="department"
-                        id="EmployeeDepartmentField"
-                        value={formEntry.department} 
-                        onChange={handleFormInput}
-                    />
-            </fieldset>
-            <button  type="submit" className="employee-creation-button" >Add Employee</button>
-        </form>
-    );
-};
+                        />
+
+                        
+                        <label htmlFor="EmployeeDepartmentField">
+                            Employee's Department
+                        </label>
+                        {errors.has("department") && (
+                            <div className="error">{errors.get("department")}</div>
+                        )} 
+                        <input 
+                            type="text"
+                            name="department"
+                            id="EmployeeDepartmentField"
+                            value={formEntry.department} 
+                            onChange={handleFormInput}
+                        />
+
+                </fieldset>
+                <button  type="submit" className="employee-creation-button" >Add Employee</button>
+            </form>
+        );
+        
+    };
 
 
 
-function CreateEmployee({employee}: { employee: Employee }) {
+export function EmployeeFormHandler({EmployeeCount,onAddEmployee,}:{EmployeeCount:number,onAddEmployee:(emp: Employee) => void;}){
+    const { formEntry, handleFormInput, handleSubmit,errors } = useEntryForm({
+        EmployeeCount,
+        onAddEmployee
+    });
+
     return(
-        <div className ="departmentSection">
-        <h3>{employee.department}</h3>
-        {employee.name}
-        </div>
+        <EmployeeForm
+        formEntry={formEntry}
+        handleFormInput={handleFormInput}
+        handleSubmit={handleSubmit}
+        errors={errors}
+    />
 
-    );
-};
-
-function EmployeeForm(){
-if (EmployeeFormTemplate){
-    CreateEmployee
-    await 
+    )
 }
-
-
-}
-
-
-export default 
+export default EmployeeFormHandler

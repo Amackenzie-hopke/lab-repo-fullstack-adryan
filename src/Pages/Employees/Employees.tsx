@@ -4,35 +4,48 @@ import { useState } from "react";
 import DepartmentList from '../../components/Employees/EmployeeList'
 import type { Employee } from "../../data/Employees/employeeInterface";
 
-import { HandleEmployeeForm } from '../../components/Employees/employeeForm';
+import EmployeeFormHandler from '../../components/Employees/employeeForm';
+import EmployeeSearch from '../../components/Employees/EnployeeSearch'
 
-/* main calls departmentList function using employee data*/
+
+/*
+Employee Page Function which renders and acts a parent to all employee componenets
+
+
+
+*/
+
 export function EmployeePage(){
 
-
     const [employees,setEmployees ] = useState<Employee[]>(employeeData);
-
+   
     const [query, updateQuery] = useState("");
 
+    const filteredEmployees = employees.filter(
+        (employee)=>
+            employee.name.toLowerCase().startsWith(query.toLowerCase()) ||
+            employee.department.toLowerCase().startsWith(query.toLowerCase())
+    );
 
     const addNewEmployee = (newEmployee: Employee) => {
         setEmployees((prevEmployees) => [...prevEmployees, newEmployee]);
     };
+
+    
   return(   
    <>
     <section>
     <h2>Employee Directory</h2>
     
-    <input 
-        id="searchBox"
-        type="text" 
-        placeholder="Search here" 
-        value={query} 
-        onChange={(event)=>updateQuery(event.target.value)}
+    <EmployeeSearch 
+      query={query}
+      updateQuery={updateQuery}
     />
-    <HandleEmployeeForm onAddEmployee={addNewEmployee} EmployeeCount={employees.length}/>
-    <DepartmentList employees={employees} query={query}/>
-
+    <EmployeeFormHandler
+      EmployeeCount={employees.length}
+      onAddEmployee={addNewEmployee}
+    />    
+    <DepartmentList filteredEmployees={filteredEmployees}/>
     </section>
     </>
   );

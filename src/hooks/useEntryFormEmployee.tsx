@@ -1,7 +1,6 @@
 import { useState } from "react";
 import type { Employee } from "../data/Employees/employeeInterface";
-import * as RecipeService from "../services/recipeService";
-import { createEmployee } from "../apis/employeeRepo";
+import * as EmployeeService from "../services/EmployeeServices";
 
 
 interface UseEntryEmployeeFormProps {
@@ -17,43 +16,63 @@ export function useEntryForm({ EmployeeCount, onAddEmployee }: UseEntryEmployeeF
     department: "",
   });
 
+  const [errors, setErrors] = useState<Map<string, string>>(new Map());
 
 
-const handleFormInput = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const { name, value} = event.target;
-        setFormEntry({
-            ...formEntry,
-            [name]: value,
-  });
-}
+  const handleFormInput = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+      const { name, value} = event.target;
 
 
+      setErrors(foundErrors => {
+        const newErrors = new Map(foundErrors);
+        newErrors.delete(name);
+        return newErrors;
+      });
 
-const handleSubmit = async(event:React.FormEvent)=>{
-    event.preventDefault()
-
-    const newEmployee= {
-            ...formEntry,  
-            id: ((EmployeeCount ?? 0) + 1).toString()              
-    };
-
-
-    console.log("newEmployee", newEmployee);
-
-    await createEmployee(newEmployee)
-
-    setFormEntry({
-    id:"",
-    name: "",
-    department:"",
-    });
+      setFormEntry({
+        ...formEntry,
+        [name]: value,
+      });
   }
-return{
-  formEntry,
-  handleFormInput,
-  handleSubmit
-}
 
+
+  const handleSubmit = async(event:React.FormEvent)=>{
+      event.preventDefault()
+
+      const newEmployee= {
+              ...formEntry,  
+              id: ((EmployeeCount ?? 0) + 1).toString()              
+      };
+
+      const errors = await EmployeeService.validateEmployee(newEmployee);
+      if (errors.size > 0) {
+          console.log("Validation errors:", errors);
+          setErrors(errors);
+          return; 
+      }
+
+      console.log("newEmployee", newEmployee);
+
+      await EmployeeService.createNewEmployee(newEmployee);
+      
+      if (onAddEmployee) {
+        onAddEmployee(newEmployee); 
+      }
+
+      setFormEntry({
+        id:"",
+        name: "",
+        department:"",
+        });
+      setErrors(new Map());
+    }
+
+    return{
+      formEntry,
+      handleFormInput,
+      handleSubmit,
+      errors
+  }
 }
 
 
