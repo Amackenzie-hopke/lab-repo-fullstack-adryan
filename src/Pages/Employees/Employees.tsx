@@ -6,11 +6,12 @@ import type { Employee } from "../../data/Employees/employeeInterface";
 
 import EmployeeFormHandler from '../../components/Employees/employeeForm';
 import EmployeeSearch from '../../components/Employees/EnployeeSearch'
-
-
+import { fetchEmployees } from '../../services/EmployeeServices'
 /*
 Employee Page Function which renders and acts a parent to all employee componenets
-
+ - creates a use state instance of the employees collection based off the static data we have (since we are not working with  persistent data )
+ - implmemnts our search bars filter
+ - executes components
 
 
 */
@@ -21,15 +22,21 @@ export function EmployeePage(){
    
     const [query, updateQuery] = useState("");
 
+
+
+
+    const addNewEmployee = (newEmployee: Employee) => {
+      setEmployees(prev => [...prev, newEmployee]);
+    };
+
+
+
     const filteredEmployees = employees.filter(
         (employee)=>
             employee.name.toLowerCase().startsWith(query.toLowerCase()) ||
             employee.department.toLowerCase().startsWith(query.toLowerCase())
     );
 
-    const addNewEmployee = (newEmployee: Employee) => {
-        setEmployees((prevEmployees) => [...prevEmployees, newEmployee]);
-    };
 
     
   return(   
@@ -42,8 +49,8 @@ export function EmployeePage(){
       updateQuery={updateQuery}
     />
     <EmployeeFormHandler
-      EmployeeCount={employees.length}
-      onAddEmployee={addNewEmployee}
+      count={employees.length}
+      onAdd={addNewEmployee}
     />    
     <DepartmentList filteredEmployees={filteredEmployees}/>
     </section>

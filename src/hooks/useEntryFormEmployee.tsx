@@ -1,29 +1,34 @@
 import { useState } from "react";
 import type { Employee } from "../data/Employees/employeeInterface";
+import type { Organization } from "../data/Organization/OrganizationInterface";
+
 import * as EmployeeService from "../services/EmployeeServices";
+import * as OrganizationService from "../services/OrganizationServices";
 
 
-interface UseEntryEmployeeFormProps {
-  EmployeeCount:number;
-  onAddEmployee?: (employee:Employee)=> void;
+interface UseEntryFormProps {
+  count: number;
+  type: "employee" | "organization";
+  onAdd?: (entry: Employee | Organization) => void;
 }
 
 /*
-useentryform hook is a Form handler for employee creation form
+useentryform hook is a Form handler for employee and organization creation via a form
 handles 
-  - front end logic for the form and employee creation
+  - front end logic for the form depedning on the form type recieved from component
   - returning errors for components to display
   - our use state logic for the form
   - for submision behaviour such as preventing default behaviour and claling our creation service.
-
+  - id assignment which is currently broken
 */
 
-export function useEntryForm({ EmployeeCount, onAddEmployee }: UseEntryEmployeeFormProps) {
-  const [formEntry, setFormEntry] = useState<Employee>({
-    id:"",
-    name: "",
-    department: "",
-  });
+export function useEntryForm({ count,type,onAdd }: UseEntryFormProps) {
+  const formType = type ==="employee" ? 
+    { id: "", name: "", department: "" } :
+    { id: "", role: "", name: "", description: "" };
+  
+  
+  const [formEntry, setFormEntry] = useState<Employee|Organization>(formType);
 
   const [errors, setErrors] = useState<Map<string, string>>(new Map());
 
@@ -48,34 +53,45 @@ export function useEntryForm({ EmployeeCount, onAddEmployee }: UseEntryEmployeeF
   const handleSubmit = async(event:React.FormEvent)=>{
       event.preventDefault()
 
-      const newEmployee= {
+
+
+
+      const entry= {
               ...formEntry,  
-              id: ((EmployeeCount ?? 0) + 1).toString()              
+              id: (count + 1).toString()              
       };
 
-      const errors = await EmployeeService.validateEmployee(newEmployee);
-      if (errors.size > 0) {
-          console.log("Validation errors:", errors);
-          setErrors(errors);
-          return; 
-      }
+      if (type ==="employee"){
+        const employeeErrors = await EmployeeService.validateEmployee(entry as Employee);
+        if (employeeErrors.size > 0) {
+            console.log("Validation errors:", employeeErrors);
+            setErrors(employeeErrors);
+            return; 
+        }
+        console.log("newEmployee", entry);
+        await EmployeeService.createNewEmployee(entry as Employee);
+        if (onAdd) {
+          onAdd(entry); 
+        }
 
-      console.log("newEmployee", newEmployee);
+      }else{
+        const OrganizationErrors = await OrganizationService.validateOrganization(entry as Organization);
+        if (OrganizationErrors.size > 0) {
+            console.log("Validation errors:", OrganizationErrors);
+            setErrors(OrganizationErrors);
+            return; 
+        }
+        console.log("neworg", entry);
+        await OrganizationService.createNewOrganization(entry as Organization);
+        if (onAdd) {
+          onAdd(entry); 
+        }
 
-      await EmployeeService.createNewEmployee(newEmployee);
 
-      if (onAddEmployee) {
-        onAddEmployee(newEmployee); 
-      }
-
-      setFormEntry({
-        id:"",
-        name: "",
-        department:"",
-        });
+      setFormEntry(formType);
       setErrors(new Map());
     }
-
+  }
     return{
       formEntry,
       handleFormInput,

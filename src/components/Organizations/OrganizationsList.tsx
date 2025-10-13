@@ -1,4 +1,4 @@
-import organizations from '../../data/Organization/Organization.json'
+import {organizationData} from '../../data/Organization/Organization'
 import type {Organization} from '../../data/Organization/OrganizationInterface'
 import { useState } from "react" 
 
@@ -24,14 +24,16 @@ function OrgDescription({org}: {org:Organization}) {
 
 
 
-
-const Orgs = organizations.map((org:Organization)=>
-    <div className= "OrganizationProfile">
+function OrganizationsList({ organizations }: { organizations: Organization[] }) {
+return(
+<>
+{organizations.map((org:Organization)=>(
+    <div className= "OrganizationProfile"key={org.id}>
             <h2>
-            {org.role} 
+                {org.role} 
             </h2>
             <h3>
-            {org.name} 
+                {org.name} 
             </h3>
             <div>
                 <h3 className='description-header'>
@@ -39,13 +41,14 @@ const Orgs = organizations.map((org:Organization)=>
                 </h3>
                 <OrgDescription org={org} />
             </div>
-
     </div>
+))}
+</>
 );
+}
 
 
 
 
 
-
-export default Orgs
+export default OrganizationsList;

@@ -10,7 +10,7 @@ interface EmployeeFormProps {
 }
 
 /*
-Employee form defines our employye creation forms html structure and renders erros received from service validations through our hook
+Employee form defines our employye creation forms html structure and renders errors received from service validations through our hook
 
 receives form entry, handleSubmit, HandleformInput and errors as parameters from the use form entry employee hook
 */
@@ -61,17 +61,21 @@ function EmployeeForm({ formEntry, handleSubmit, handleFormInput,errors}:Employe
 
 
 /*
-bridges the employee form with the useEntryFormEmployee hook for execution on the page component
+bridges the employee form with the useEntryForm hook for execution on the page component
+    -  count is used by hook to generate id
+    - on add is passed through hook as a callback fucntion which tells our hook when to create a object to match the object created in browser
+    - type is passed to differentiate the form from the organization form in hook
 */
-export function EmployeeFormHandler({EmployeeCount,onAddEmployee,}:{EmployeeCount:number,onAddEmployee:(emp: Employee) => void;}){
+export function EmployeeFormHandler({count,onAdd,}:{count:number,onAdd:(emp: Employee) => void;}){
     const { formEntry, handleFormInput, handleSubmit,errors } = useEntryForm({
-        EmployeeCount,
-        onAddEmployee
+    count,
+    type:"employee",
+    onAdd
     });
 
     return(
         <EmployeeForm
-        formEntry={formEntry}
+        formEntry={formEntry as FormEntry}
         handleFormInput={handleFormInput}
         handleSubmit={handleSubmit}
         errors={errors}
