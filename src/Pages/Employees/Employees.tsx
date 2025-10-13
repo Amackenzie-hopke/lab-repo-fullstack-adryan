@@ -12,8 +12,6 @@ Employee Page Function which renders and acts a parent to all employee componene
  - creates a use state instance of the employees collection based off the static data we have (since we are not working with  persistent data )
  - implmemnts our search bars filter
  - executes components
-
-
 */
 
 export function EmployeePage(){
