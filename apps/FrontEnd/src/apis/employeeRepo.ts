@@ -29,7 +29,7 @@ export async function updateEmployee(employee: Employee) {
   const index = employeeData.findIndex((emp) => emp.id === employee.id);
 
   if (index !== -1) {
-    throw new Error(`Failed to update recipe with ${employee}`);
+    throw new Error(`Failed to update employee with ${employee}`);
   }
 
   employeeData[index] = employee;

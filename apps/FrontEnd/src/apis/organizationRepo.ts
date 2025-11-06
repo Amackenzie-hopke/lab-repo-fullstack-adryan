@@ -16,7 +16,7 @@ export async function updateOrganization(organization: Organization) {
   const index = organizationData.findIndex((org) => org.id === organization.id);
 
   if (index !== -1) {
-    throw new Error(`Failed to update recipe with ${organization}`);
+    throw new Error(`Failed to update organization with ${organization}`);
   }
 
   organizationData[index] = organization;

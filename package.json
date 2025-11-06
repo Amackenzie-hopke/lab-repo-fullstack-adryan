@@ -17,6 +17,11 @@
   "type": "commonjs",
   "description": "",
   "devDependencies": {
+    "@types/body-parser": "^1.19.6",
+    "@types/express": "^5.0.5",
+    "@types/morgan": "^1.9.10",
+    "@types/multer": "^2.0.0",
+    "@types/node": "^24.10.0",
     "concurrently": "^9.1.2",
     "prisma": "^6.18.0",
     "ts-node": "^10.9.2",
@@ -24,6 +29,15 @@
   },
   "dependencies": {
     "@prisma/client": "^6.18.0",
-    "dotenv": "^16.4.7"
+    "body-parser": "^2.2.0",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.2",
+    "dotenv": "^16.6.1",
+    "express": "^5.1.0",
+    "joi": "^18.0.1",
+    "morgan": "^1.10.1",
+    "multer": "^2.0.2",
+    "reflect-metadata": "^0.2.2",
+    "routing-controllers": "^0.11.3"
   }
 }
