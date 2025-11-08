@@ -1,24 +1,9 @@
-export interface RecipeDto {
-  id?: string;
-  name: string;
-  description: string;
-  recipeTypeId: string;
-
-  ingredients: string[];
-  steps: string[];
-
-  servings: number;
-  prepTime: number;
-  cookTime: number;
-  saved: boolean;
-  ovenTemp?: number;
-
-}
-
-export interface Employee{
-    id:string;
+export interface EmployeeDto {
+    id?:string;
     name:string;
     department:string;
-    updatedAt: Date;
-    createdAt: Date;
+    updatedAt?: Date;
+    createdAt?: Date;
 }
+
+

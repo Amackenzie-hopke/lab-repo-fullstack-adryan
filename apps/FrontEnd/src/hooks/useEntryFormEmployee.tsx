@@ -19,10 +19,9 @@ handles
   - returning errors for components to display
   - our use state logic for the form
   - for submision behaviour such as preventing default behaviour and claling our creation service.
-  - id assignment which is currently broken
 */
 
-export function useEntryForm({ count,type,onAdd }: UseEntryFormProps) {
+export function useEntryForm({type,onAdd }: UseEntryFormProps) {
   const formType = type ==="employee" ? 
     { id: "", name: "", department: "" } :
     { id: "", role: "", name: "", description: "" };
@@ -57,8 +56,7 @@ export function useEntryForm({ count,type,onAdd }: UseEntryFormProps) {
 
 
       const entry= {
-              ...formEntry,  
-              id: (count + 1).toString()              
+              ...formEntry,              
       };
 
       if (type ==="employee"){

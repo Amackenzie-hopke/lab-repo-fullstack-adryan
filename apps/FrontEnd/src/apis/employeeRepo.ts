@@ -12,38 +12,52 @@ Current CRUD functions
 */
 
 
-import { employeeData } from "../data/Employees/employees";
 import type { Employee } from "../data/Employees/employeeInterface";
+import type { BaseResponse } from "../types/BaseResponse";
+const BASE_URL = `${import.meta.env.VITE_API_BASE_URL}/api/v1`;
 
-export function getEmployees() {
-  return employeeData;
+
+
+export async function getEmployees() {
+  const employeeResponse: Response = await fetch(`${BASE_URL}/employees`);
+
+  if (!employeeResponse.ok) {
+    throw new Error("Failed to fetch employees");
+  }
+
+  const json: BaseResponse<Employee[]> = await employeeResponse.json();
+  return json.data;
 }
 
+
+export async function getEmployeeById(employeeId: string): Promise<Employee> {
+  const employeeResponse: Response = await fetch(`${BASE_URL}/employees/${employeeId}`);
+
+  if (!employeeResponse.ok) {
+    throw new Error(`Failed to fetch Employee with id ${employeeId}`);
+  }
+
+  const json: BaseResponse<Employee> = await employeeResponse.json();
+  return json.data;
+}
 
 export async function createEmployee(employee: Employee) {
-  employeeData.push(employee);
-  return employee;
-}
+  const { id, ...employeeData } = employee;
 
-export async function updateEmployee(employee: Employee) {
-  const index = employeeData.findIndex((emp) => emp.id === employee.id);
+  const createResponse: Response = await fetch(`${BASE_URL}/employees/create`, {
 
-  if (index !== -1) {
-    throw new Error(`Failed to update employee with ${employee}`);
+    method: "POST",
+    body: JSON.stringify({ ...employeeData }),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  if (!createResponse.ok) {
+    throw new Error(`Failed to create Employee`);
   }
 
-  employeeData[index] = employee;
-  return employeeData[index];
+  const json: BaseResponse<Employee> = await createResponse.json();
+  return json.data;
 }
-
-export async function deleteEmployee(employee: Employee) {
-  const index = employeeData.findIndex(emp => emp.id === employee.id);
-
-  if (index !== -1) {
-    employeeData.splice(index, 1);
-  }
-
-  return employee;
-}
-
 

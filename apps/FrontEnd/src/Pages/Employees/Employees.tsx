@@ -1,12 +1,10 @@
-import {employeeData} from '../../data/Employees/employees' 
 import './Employees.css'
 import { useState } from "react";
 import DepartmentList from '../../components/Employees/EmployeeList'
 import type { Employee } from "../../data/Employees/employeeInterface";
-
 import EmployeeFormHandler from '../../components/Employees/employeeForm';
 import EmployeeSearch from '../../components/Employees/EnployeeSearch'
-import { fetchEmployees } from '../../services/EmployeeServices'
+import { useEmployeesPage } from '../../hooks/useEmployeePage';
 /*
 Employee Page Function which renders and acts a parent to all employee componenets
  - creates a use state instance of the employees collection based off the static data we have (since we are not working with  persistent data )
@@ -14,13 +12,10 @@ Employee Page Function which renders and acts a parent to all employee componene
  - executes components
 */
 
+
 export function EmployeePage(){
-
-    const [employees,setEmployees ] = useState<Employee[]>(employeeData);
-   
+    const [employees,setEmployees ] = useEmployeesPage();
     const [query, updateQuery] = useState("");
-
-
 
 
     const addNewEmployee = (newEmployee: Employee) => {
