@@ -9,7 +9,7 @@ import { validateRequest } from "../middleware/validate";
 @Controller()
 export class EmployeeController {
   @Get("/employees")
-  async getAll(@Req() req, @Res() res: Response) {
+  async getAll(@Req() req:Request, @Res() res: Response) {
     try {
       const employees = await EmployeeService.fetchAllEmployees();
       return res.status(200).json(successResponse(employees, "Employees retrieved successfully"));
