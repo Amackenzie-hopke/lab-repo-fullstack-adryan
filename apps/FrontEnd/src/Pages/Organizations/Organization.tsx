@@ -8,13 +8,9 @@ import { organizationData } from '../../data/Organization/Organization';
 export function OrganizationPage (){
     const [orgs,setOrgs ] = useState<Organization[]>(organizationData);
 
-    
-
     const addNewOrg = (newOrganization: Organization) => {
         setOrgs((prevOrgs) => [...prevOrgs, newOrganization]);
     };
-
-   
 
     return(
         <>
@@ -31,9 +27,6 @@ export function OrganizationPage (){
         </>
     );
 };
-
-
-
 
 export default OrganizationPage
 

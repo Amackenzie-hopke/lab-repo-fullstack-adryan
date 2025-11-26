@@ -25,12 +25,13 @@
     "@types/node": "^24.10.0",
     "@types/swagger-ui-express": "^4.1.8",
     "concurrently": "^9.1.2",
-    "prisma": "^6.18.0",
+    "prisma": "6.18.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.2"
   },
   "dependencies": {
-    "@prisma/client": "^6.18.0",
+    "@clerk/clerk-react": "^5.56.0",
+    "@prisma/client": "6.18.0",
     "body-parser": "^2.2.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.2",

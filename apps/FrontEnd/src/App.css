@@ -31,3 +31,10 @@ body{
   max-width: 1200px;
   font-size:2rem;
 }
+.sign-in-btn{
+  background: radial-gradient(circle, rgba(238, 174, 202, 1) 56%, rgba(179, 183, 222, 1) 85%, rgba(148, 187, 233, 1) 0%);
+  color: #222;
+  border: .1em solid black;
+  cursor:pointer;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
