@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "main": "src/app.ts",
   "scripts": {
-    "dev": "ts-node src/server.ts"
+    "dev": "ts-node src/server.ts",
+    "vercel-build":"npm run prisma:migrate && npm run prisma:seed && npm run build"
+
   },
   "dependencies": {
       "routing-controllers-openapi": "^x.x.x"

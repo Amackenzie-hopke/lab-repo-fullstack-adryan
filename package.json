@@ -10,6 +10,7 @@
     "migrate:backend": "npx --workspace=@complexicon/backend prisma migrate dev",
     "start:frontend": "npm run dev --workspace=apps/FrontEnd",
     "start:backend": "npm start --workspace=apps/BackEnd"
+
   },
   "keywords": [],
   "author": "",
