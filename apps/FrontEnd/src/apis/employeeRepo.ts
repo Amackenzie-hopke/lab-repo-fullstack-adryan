@@ -14,12 +14,16 @@ Current CRUD functions
 
 import type { Employee } from "../data/Employees/employeeInterface";
 import type { BaseResponse } from "../types/BaseResponse";
-const BASE_URL = `${import.meta.env.VITE_API_BASE_URL}/api/v1`;
+const BASE_URL = `${import.meta.env.VITE_API_BASE_URL}`;
 
 
 
-export async function getEmployees() {
-  const employeeResponse: Response = await fetch(`${BASE_URL}/employees`);
+export async function getEmployees(token: string) {
+  const employeeResponse: Response = await fetch(`${BASE_URL}/employees`,{
+     headers: {
+      "Authorization": `Bearer ${token}`,
+    },
+  });
 
   if (!employeeResponse.ok) {
     throw new Error("Failed to fetch employees");
@@ -41,7 +45,7 @@ export async function getEmployeeById(employeeId: string): Promise<Employee> {
   return json.data;
 }
 
-export async function createEmployee(employee: Employee) {
+export async function createEmployee(employee: Employee,token: string) {
   const { id, ...employeeData } = employee;
 
   const createResponse: Response = await fetch(`${BASE_URL}/employees/create`, {
@@ -50,6 +54,8 @@ export async function createEmployee(employee: Employee) {
     body: JSON.stringify({ ...employeeData }),
     headers: {
       "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`
+
     },
   });
 

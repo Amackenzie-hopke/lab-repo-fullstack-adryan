@@ -4,6 +4,7 @@ import type { Organization } from "../data/Organization/OrganizationInterface";
 
 import * as EmployeeService from "../services/EmployeeServices";
 import * as OrganizationService from "../services/OrganizationServices";
+import { useAuth } from "@clerk/clerk-react";
 
 
 interface UseEntryFormProps {
@@ -22,6 +23,8 @@ handles
 */
 
 export function useEntryForm({type,onAdd }: UseEntryFormProps) {
+  const { getToken } = useAuth();
+
   const formType = type ==="employee" ? 
     { id: "", name: "", department: "" } :
     { id: "", role: "", name: "", description: "" };
@@ -60,14 +63,18 @@ export function useEntryForm({type,onAdd }: UseEntryFormProps) {
       };
 
       if (type ==="employee"){
+        const token = await getToken();
+        if (!token) return;
         const employeeErrors = await EmployeeService.validateEmployee(entry as Employee);
         if (employeeErrors.size > 0) {
             console.log("Validation errors:", employeeErrors);
             setErrors(employeeErrors);
             return; 
         }
+
+
         console.log("newEmployee", entry);
-        await EmployeeService.createNewEmployee(entry as Employee);
+        await EmployeeService.createNewEmployee(entry as Employee,token);
         if (onAdd) {
           onAdd(entry); 
         }

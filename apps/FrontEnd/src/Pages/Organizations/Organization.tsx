@@ -4,8 +4,13 @@ import OrganizationFormHandler from "../../components/Organizations/Organization
 import { useState } from "react";
 import type { Organization } from '../../data/Organization/OrganizationInterface';
 import { organizationData } from '../../data/Organization/Organization';
+import { useAuth} from "@clerk/clerk-react";
+import image2 from '../../assets/images/image2.png';
 
 export function OrganizationPage (){
+    const { isSignedIn } = useAuth();
+
+    
     const [orgs,setOrgs ] = useState<Organization[]>(organizationData);
 
     const addNewOrg = (newOrganization: Organization) => {
@@ -14,6 +19,7 @@ export function OrganizationPage (){
 
     return(
         <>
+        {isSignedIn ? (
         <section className = 'Organization-List'>
         <h2>
             Our Leaders
@@ -24,9 +30,19 @@ export function OrganizationPage (){
         />
         <OrganizationsList organizations={orgs} />
         </section>
+        ):(
+        <>
+        <h1>no sign in no entry <br />{'>:(((('}</h1>
+        <img src={image2} alt="nuhuh" />
+        </>
+    )}
         </>
     );
 };
 
+
+
+  
+      
 export default OrganizationPage
 

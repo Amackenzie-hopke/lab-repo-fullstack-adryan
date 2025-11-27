@@ -11,13 +11,13 @@ validations
 import * as employeeRepo from "../apis/employeeRepo";
 import type { Employee } from "../data/Employees/employeeInterface";
 
-export async function fetchEmployees() {
-  const employees = await employeeRepo.getEmployees();
+export async function fetchEmployees(token: string) {
+  const employees = await employeeRepo.getEmployees(token);
   return employees;
 }
 
-export async function createNewEmployee(employee: Employee) {
-  return await employeeRepo.createEmployee(employee);
+export async function createNewEmployee(employee: Employee,token: string) {
+  return await employeeRepo.createEmployee(employee,token);
 }
 
 

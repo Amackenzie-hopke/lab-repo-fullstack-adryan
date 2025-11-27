@@ -30,6 +30,7 @@ body{
   width: 90%;
   max-width: 1200px;
   font-size:2rem;
+  font-family: 'Comic Sans MS';
 }
 .sign-in-btn{
   background: radial-gradient(circle, rgba(238, 174, 202, 1) 56%, rgba(179, 183, 222, 1) 85%, rgba(148, 187, 233, 1) 0%);

@@ -1,6 +1,6 @@
 import pixelLogo from '../../../assets/images/image.png'
 import './NavBar.css'
-import {SignInButton, useAuth, UserButton } from "@clerk/clerk-react";
+import {SignInButton, SignOutButton, useAuth, UserButton } from "@clerk/clerk-react";
 
 
 export function Nav() {
@@ -8,13 +8,18 @@ export function Nav() {
 
     return(
         <nav className = 'navbar'>
-           {isSignedIn && (
-          <>
           <img src={pixelLogo} className="logo" alt="pixel river financial logo" />
+           {isSignedIn ? (
+          <>
           <a href="employees">Employees</a>
           <a href="organization">Organization</a>
+          <SignOutButton/>
           <UserButton />
           </>
+           ) : ( <SignInButton>
+          <button className="sign-in-btn">Sign In</button>
+
+           </SignInButton>
 
            )}
         </nav>
