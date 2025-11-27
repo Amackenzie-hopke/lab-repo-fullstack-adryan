@@ -3,7 +3,7 @@ import type { Employee } from "../data/Employees/employeeInterface";
 import type { Organization } from "../data/Organization/OrganizationInterface";
 
 import * as EmployeeService from "../services/EmployeeServices";
-import * as OrganizationService from "../services/OrganizationServices";
+import * as OrganizationService from "../services/organizationServices";
 import { useAuth } from "@clerk/clerk-react";
 
 

@@ -1,4 +1,3 @@
-import {organizationData} from '../../data/Organization/Organization'
 import type {Organization} from '../../data/Organization/OrganizationInterface'
 import { useState } from "react" 
 
