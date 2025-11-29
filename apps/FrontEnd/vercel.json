@@ -1,10 +1,5 @@
 {
-  "rewrites": [
-    {
-      "source": "/:path*",
-      "destination": "/index.html"
-    }
-  ],
+  "relatedProjects": ["prj_rppWTAAPSwMr38rb6B8BxHDBPtre"],
   "git": {
     "deploymentEnabled": {
       "*": false,
