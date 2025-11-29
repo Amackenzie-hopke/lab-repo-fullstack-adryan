@@ -1,11 +1,10 @@
 {
    "relatedProjects": ["prj_gFG82pIUKFlLnDrK8TdWgn0JgUiR"],
     "outputDirectory": "dist",
-
    "rewrites": [
       {
             "source": "/(.*)",
-            "destination": "/api" 
+            "destination": "/" 
       }
    ]
 }
