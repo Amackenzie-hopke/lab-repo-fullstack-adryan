@@ -7,10 +7,11 @@
     "build": "tsc -p tsconfig.json",
     "prisma:migrate": "prisma migrate deploy",
     "prisma:seed": "prisma db seed",
-    "vercel-build":"npm run prisma:migrate && npm run prisma:seed && npm run build",
+    "vercel-build": "npm run prisma:migrate && npm run prisma:seed && npm run build",
     "postinstall": "prisma generate"
   },
   "dependencies": {
-      "routing-controllers-openapi": "^x.x.x"
+    "routing-controllers-openapi": "^x.x.x",
+    "swagger-ui-express": "^5.0.1"
   }
 }
