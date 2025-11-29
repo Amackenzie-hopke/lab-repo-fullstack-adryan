@@ -10,7 +10,7 @@ import { useAuth } from "@clerk/clerk-react";
 interface UseEntryFormProps {
   count: number;
   type: "employee" | "organization";
-  onAdd?: (entry: Employee | Organization) => void;
+  onAdd?: (entry: any) => void;
 }
 
 /*
@@ -55,9 +55,6 @@ export function useEntryForm({type,onAdd }: UseEntryFormProps) {
   const handleSubmit = async(event:React.FormEvent)=>{
       event.preventDefault()
 
-
-
-
       const entry= {
               ...formEntry,              
       };
@@ -91,11 +88,11 @@ export function useEntryForm({type,onAdd }: UseEntryFormProps) {
         if (onAdd) {
           onAdd(entry); 
         }
-
+      }
 
       setFormEntry(formType);
       setErrors(new Map());
-    }
+    
   }
     return{
       formEntry,
