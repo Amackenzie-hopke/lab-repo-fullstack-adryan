@@ -6,12 +6,14 @@ import corsOptions from "./config/cors";
 import { useExpressServer } from "routing-controllers";
 import { EmployeeController } from "./api/v1/controllers/employeeController";
 import { clerkMiddleware, requireAuth } from "@clerk/express";
+import cors from "cors";
 
 const app: Express = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan("combined"));
+app.use(cors(corsOptions));
 app.use(clerkMiddleware());
 
 
